@@ -1,3 +1,12 @@
+/**
+ *  @ClassName BundleCalculatorService
+ *  @Description Define Service class for Bundle Calculator project.
+ *  @author Liu Xia
+ *  @Date 2019/10/27
+ *  @Version 1.0
+ */
+package com.lx.bc.service;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,13 +20,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class BundleCalculatorDemo {
-	
-	private static List<Submission> submissions;
-	private static List<Order> orders;
-	private static List<Output> outputs;
-	
-	private static List<Order> loadOrders() {
+import com.lx.bc.model.Bundle;
+import com.lx.bc.model.Order;
+import com.lx.bc.model.Output;
+import com.lx.bc.model.Submission;
+
+public class BundleCalculatorService {
+
+	public static List<Order> loadOrders() {
 		List<Order> orders = new ArrayList<Order>();
 		File file = new File("./src/Orders.txt");
 		BufferedReader br;
@@ -44,7 +54,7 @@ public class BundleCalculatorDemo {
 		return orders;
 	}
 	
-	private static List<Submission> loadSubmissionFormats() {
+	public static List<Submission> loadSubmissionFormats() {
 		List<Submission> submissions = new ArrayList<Submission>();
 		File file = new File("./src/SubmissionFormats.txt");
 		BufferedReader br;
@@ -80,7 +90,7 @@ public class BundleCalculatorDemo {
 		return submissions;
 	}
 	
-	private static List<Bundle> getBundleListByFormateCode(String formateCode,List<Submission> submissions){
+	public static List<Bundle> getBundleListByFormateCode(String formateCode,List<Submission> submissions){
 		List<Bundle> bundleList = new ArrayList<Bundle>();
 		for(Submission submission:submissions) {
 			if(submission.getFormateCode().equalsIgnoreCase(formateCode)) {
@@ -90,7 +100,7 @@ public class BundleCalculatorDemo {
 		return bundleList;
 	}
 	
-	private static List<Output> bundleCalculator(List<Submission> submissions, List<Order> orders){
+	public static List<Output> bundleCalculator(List<Submission> submissions, List<Order> orders){
 		List<Output> outputs = new ArrayList<Output>();
 		for(Order order:orders) {
 			int totalAmount = order.getAmount();
@@ -103,14 +113,14 @@ public class BundleCalculatorDemo {
 	}
 	
 	
-	private static Output breakDownCalculator(String formateCode, int totalAmount, List<Bundle>bundles) {
+	public static Output breakDownCalculator(String formateCode, int totalAmount, List<Bundle>bundles) {
 		Output output = new Output();
 		output.setAmount(totalAmount);
 		output.setFormateCode(formateCode);
 		TreeMap<Bundle,Integer> bundlesMap = new TreeMap<Bundle,Integer>();
 		Collections.sort(bundles);
 		Collections.reverse(bundles);
-		Integer reminder = 1;
+		Integer reminder = totalAmount;
 		int start = 0;
 		int initialTotalAmount = totalAmount;
 		while(reminder!=0) {
@@ -137,7 +147,7 @@ public class BundleCalculatorDemo {
 		
 	} 
 	
-	private static Double getTotalPricleForBundles(Map<Bundle,Integer> bundlesMap) {
+	public static Double getTotalPricleForBundles(Map<Bundle,Integer> bundlesMap) {
 		Double totalPrice = 0.0;
 		for(Map.Entry<Bundle,Integer> entry:bundlesMap.entrySet()) {
 			int amount = entry.getValue();
@@ -148,7 +158,7 @@ public class BundleCalculatorDemo {
 		return totalPrice;
 	}
 	
-	private static void printOutputsToFile(List<Output> outputs) {
+	public static void printOutputsToFile(List<Output> outputs) {
 		StringBuilder sb = new StringBuilder();
 		for(Output output:outputs) {
 			sb.append(output.toString());
@@ -164,17 +174,5 @@ public class BundleCalculatorDemo {
 		}
 	}
 	
-	public static void main(String[] args) {
-		//prepare the submissions based on submission format file
-		submissions = loadSubmissionFormats();
-		System.out.println("prepare the submissions based on SubmissionFormats.txt file");
-		
-		//prepare the orders based on Orders.txt file
-		orders = loadOrders();
-		outputs = bundleCalculator(submissions, orders);
-		printOutputsToFile(outputs);
-	}
-
-
-
+	
 }

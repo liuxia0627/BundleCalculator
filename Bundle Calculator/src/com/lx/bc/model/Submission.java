@@ -1,16 +1,16 @@
+/**
+ *  @ClassName Submission
+ *  @Description Define Submission entity.
+ *  @author Liu Xia
+ *  @Date 2019/10/27
+ *  @Version 1.0
+ */
+package com.lx.bc.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * 
- * @author rogerwill
- * Jave Bean to represent the submission:
- * Submission format | Format code | Bundles
- * ----------------- | ----------- | -------
- *        Image      |     IMG     | 5 @ $450 10 @ $800
- */
 public class Submission {
 	
 	private String format;

@@ -1,13 +1,12 @@
 /**
- * 
- * @author rogerwill
- * Jave Bean to represent the Order:
- * ```
- *	10 IMG
- *	15 FLAC
- *	13 VID
- * ```
+ *  @ClassName Order
+ *  @Description Define Order entity.
+ *  @author Liu Xia
+ *  @Date 2019/10/27
+ *  @Version 1.0
  */
+package com.lx.bc.model;
+
 public class Order {
 	
 	private int amount;

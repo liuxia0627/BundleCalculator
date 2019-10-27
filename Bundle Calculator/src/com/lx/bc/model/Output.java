@@ -1,13 +1,15 @@
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+/**
+ *  @ClassName Output
+ *  @Description Define Output entity.
+ *  @author Liu Xia
+ *  @Date 2019/10/27
+ *  @Version 1.0
+ */
+
+package com.lx.bc.model;
+
 import java.util.TreeMap;
 
-/**
- * 
- * @author rogerwill
- * Jave Bean represents the output result
- */
 public class Output {
 	
 	private String formateCode;
@@ -73,6 +75,7 @@ public class Output {
 				bundlesSb.append(" " + bundles.get(bundle) + " x " + bundle.getAmount() + " $"
 						+ (bundles.get(bundle) * bundle.getPrice() + System.getProperty("line.separator")));
 			}
+			bundlesSb.append(System.getProperty("line.separator"));
 		}
 		return bundlesSb.toString();
 	}

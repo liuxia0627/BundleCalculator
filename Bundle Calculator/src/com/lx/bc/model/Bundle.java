@@ -1,3 +1,12 @@
+/**
+ *  @ClassName Bundle
+ *  @Description Define Bundle entity.
+ *  @author Liu Xia
+ *  @Date 2019/10/27
+ *  @Version 1.0
+ */
+
+package com.lx.bc.model;
 
 public class Bundle implements Comparable<Bundle>{
 	
