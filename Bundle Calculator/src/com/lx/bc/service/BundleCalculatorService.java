@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.lx.bc.model.Bundle;
 import com.lx.bc.model.Order;
@@ -32,13 +34,20 @@ public class BundleCalculatorService {
 		File file = new File("./src/Orders.txt");
 		BufferedReader br;
 		String st;
-		StringBuffer ordersSb = new StringBuffer();
+		StringBuilder ordersSb = new StringBuilder();
+		String PATTERN = "([0-9]+)\\s(IMG|FLAC|VID)";
 		try {
+			Pattern pattern = Pattern.compile(PATTERN);
 			br = new BufferedReader(new FileReader(file));
+			int row = 1;
 			while ((st = br.readLine()) != null) {
-				if(!st.contains("`")) {
+				Matcher matcher = pattern.matcher(st);
+				if (matcher.matches()) {
 					ordersSb = ordersSb.append(st+",");
+				} else {
+					System.out.println("The format of order " + row + " is wrong");
 				}
+				row++;
 			}
 			String[] ordersArr = (ordersSb.toString().substring(0, ordersSb.toString().length()-1)).split(",");
 			for(String orderStr:ordersArr) {
